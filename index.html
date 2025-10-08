@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>riti</title>
+
+</head>
+<body>
+    <div id="buttonParent"></div>
+
+    <script>
+        let state = {
+            count: 0,
+            color: "black"
+        }
+
+        function onButtonPress(){
+            state.count++;
+            state.color =  getRandomRgbColor();
+            buttonComponentReRender();
+        }
+
+
+        function getRandomRgbColor() {
+            const r = Math.floor(Math.random() * 256); // Random number between 0 and 255 for Red
+            const g = Math.floor(Math.random() * 256); // Random number between 0 and 255 for Green
+            const b = Math.floor(Math.random() * 256); // Random number between 0 and 255 for Blue
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // function buttonComponentRender(){
+        //     const parent = document.getElementById("buttonParent");
+        //     parent.innerHTML = ""; // Clear properly
+        //     const button = document.createElement("button");
+        //     button.innerHTML = `Counter is ${state.count}`;
+        //     button.addEventListener("click", onButtonPress); // Better event binding
+        //     parent.appendChild(button);
+        // }
+        // buttonComponentRender();
+
+        //or
+
+        function buttonComponentReRender(){
+            const parent = document.getElementById("buttonParent");
+            parent.innerHTML= "";
+            const component = buttonComponent(state.count, state.color);
+            parent.appendChild(component);
+        }
+
+        function buttonComponent(count, color){
+            const button = document.createElement("button");
+            button.innerHTML = `Counter ${count}`;
+            button.addEventListener("click", onButtonPress);
+            button.setAttribute("style", `color: ${color}`);
+            document.body.style.backgroundColor = color;
+            return button;
+        }
+        
+        buttonComponentReRender()
+
+    </script>
+</body>
+</html>
